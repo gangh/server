@@ -260,5 +260,18 @@ ENDIF(compat_rpm)
 SET(CPACK_RPM_compat_PACKAGE_PROVIDES "mysql-libs = 5.3.5") # exact version doesn't matter as long as it greater than 5.1
 SET(CPACK_RPM_compat_PACKAGE_OBSOLETES "mysql-libs < 5.3.5")
 
-ENDIF(RPM)
+################
 
+SET(CPACK_SOURCE_GENERATOR "RPM")
+SET(CPACK_RPM_SOURCE_PKG_BUILD_PARAMS "-DBUILD_CONFIG=mysql_release -DRPM=${RPM}")
+
+MACRO(ADDIF var)
+  IF(DEFINED ${var})
+    SET(CPACK_RPM_SOURCE_PKG_BUILD_PARAMS "${CPACK_RPM_SOURCE_PKG_BUILD_PARAMS} -D${var}=${${var}}")
+  ENDIF()
+ENDMACRO()
+
+ADDIF(BUILD_CONFIG)
+ADDIF(WITH_SSL)
+
+ENDIF(RPM)
