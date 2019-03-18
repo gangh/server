@@ -3558,6 +3558,7 @@ public:
   String *val_str(String*,String *);
   my_decimal *val_decimal(my_decimal *);
   int cmp(const uchar *,const uchar *);
+  int cmp_max(const uchar *, const uchar *, uint max_length);
   void sort_string(uchar *buff,uint length);
   void sql_type(String &str) const;
   virtual uchar *pack(uchar *to, const uchar *from,

@@ -3735,6 +3735,19 @@ void Field_tiny::sql_type(String &res) const
   add_zerofill_and_unsigned(res);
 }
 
+/*
+  Compare 2 char fields upto length max_len.
+  Calling function must make sure that max_len < both field data_length
+  Currently only used inside of check_duplicate_long_entry_key
+*/
+int Field_string::cmp_max(const uchar *a_ptr, const uchar *b_ptr,
+                             uint max_length)
+{
+  return field_charset->coll->strnncollsp(field_charset,
+                                         a_ptr, max_length,
+                                         b_ptr, max_length);
+}
+
 /****************************************************************************
  Field type short int (2 byte)
 ****************************************************************************/
