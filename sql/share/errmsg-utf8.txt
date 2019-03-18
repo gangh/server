@@ -7954,3 +7954,5 @@ ER_PERIOD_CONSTRAINT_DROP
         eng "Can't DROP CONSTRAINT `%s`. Use DROP PERIOD `%s` for this"
 ER_TOO_LONG_KEYPART 42000 S1009
         eng "Specified key part was too long; max key part length is %u bytes"
+ER_LONG_UNIQUE_IN_PART_FUNC_ERROR
+        eng "Long unique index is not supported in partition"

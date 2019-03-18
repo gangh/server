@@ -369,6 +369,14 @@ static bool set_up_field_array(THD *thd, TABLE *table,
   ptr= table->field;
   while ((field= *(ptr++))) 
   {
+    /*
+      We currently don't support long unique hash index in partition
+    */
+    if (unlikely(field->flags & LONG_UNIQUE_HASH_FIELD))
+    {
+      my_error(ER_LONG_UNIQUE_IN_PART_FUNC_ERROR, MYF(0));
+      result= TRUE;
+    }
     if (field->flags & GET_FIXED_FIELDS_FLAG)
     {
       field->flags&= ~GET_FIXED_FIELDS_FLAG;

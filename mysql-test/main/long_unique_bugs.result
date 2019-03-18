@@ -202,3 +202,5 @@ ERROR 23000: Duplicate entry 'Ð' for key 'a'
 insert into t1 values ('Ð±Ð±Ð±');
 ERROR 23000: Duplicate entry 'Ð' for key 'a'
 drop table t1;
+CREATE TABLE t1 (a int , unique(a) using hash) PARTITION BY HASH (a) PARTITIONS 2;
+ERROR HY000: Long unique index is not supported in partition
