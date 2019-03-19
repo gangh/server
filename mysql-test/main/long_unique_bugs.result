@@ -204,3 +204,12 @@ ERROR 23000: Duplicate entry 'Ð' for key 'a'
 drop table t1;
 CREATE TABLE t1 (a int , unique(a) using hash) PARTITION BY HASH (a) PARTITIONS 2;
 ERROR HY000: Long unique index is not supported in partition
+CREATE TABLE t1 (data VARCHAR(4), unique(data) using hash) with system versioning;
+INSERT INTO t1 VALUES ('A');
+SELECT * INTO OUTFILE 'load.data' from t1;
+LOAD DATA INFILE 'load.data'  INTO TABLE t1;
+ERROR 23000: Duplicate entry 'A' for key 'data'
+select * from t1;
+data
+A
+DROP TABLE t1;
