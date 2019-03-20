@@ -494,8 +494,8 @@ class Repl_semi_sync_master
   /* Enable the object to enable semi-sync replication inside the master. */
   int enable_master();
 
-  /* Enable the object to enable semi-sync replication inside the master. */
-  int disable_master();
+  /* Disable the object to disable semi-sync replication inside the master. */
+  void disable_master();
 
   /* Add a semi-sync replication slave */
   void add_slave();

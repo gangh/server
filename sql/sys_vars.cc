@@ -3156,10 +3156,10 @@ static bool fix_rpl_semi_sync_master_enabled(sys_var *self, THD *thd,
   }
   else
   {
-    if (repl_semisync_master.disable_master() != 0)
-      rpl_semi_sync_master_enabled= true;
-    if (!rpl_semi_sync_master_enabled)
-      ack_receiver.stop();
+    mysql_mutex_unlock(&LOCK_global_system_variables);
+    repl_semisync_master.disable_master();
+    ack_receiver.stop();
+    mysql_mutex_lock(&LOCK_global_system_variables);
   }
   return false;
 }

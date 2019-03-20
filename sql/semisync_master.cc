@@ -352,7 +352,7 @@ Repl_semi_sync_master::Repl_semi_sync_master()
 
 int Repl_semi_sync_master::init_object()
 {
-  int result;
+  int result= 0;
 
   m_init_done = true;
 
@@ -375,7 +375,7 @@ int Repl_semi_sync_master::init_object()
   }
   else
   {
-    result = disable_master();
+    disable_master();
   }
 
   /*
@@ -420,7 +420,7 @@ int Repl_semi_sync_master::enable_master()
   return result;
 }
 
-int Repl_semi_sync_master::disable_master()
+void Repl_semi_sync_master::disable_master()
 {
   /* Must have the lock when we do enable of disable. */
   lock();
@@ -445,8 +445,6 @@ int Repl_semi_sync_master::disable_master()
   }
 
   unlock();
-
-  return 0;
 }
 
 void Repl_semi_sync_master::cleanup()
